@@ -1,0 +1,377 @@
+/* -------------------------------------------------------------------------
+   Один файл стилей на весь сайт. Инлайна нет, шрифты системные —
+   ни одного обращения к чужому серверу, значит нечего ждать и нечему упасть.
+   ---------------------------------------------------------------------- */
+
+:root {
+  --tinta:        #101a2b;
+  --tinta-suave:  #4b586e;
+  --azul:         #0d3b66;
+  --azul-hondo:   #08203c;
+  --azul-claro:   #eef4fa;
+  --verde-claro:  #f2f7f1;
+  --ambar:        #d4661c;
+  --ambar-claro:  #e8843d;
+  --aviso:        #fdeeee;
+  --aviso-borde:  #d94a4a;
+  --linea:        #dfe6ee;
+  --ancho:        1140px;
+  --ancho-texto:  720px;
+  --radio:        10px;
+  --sombra:       0 2px 14px rgba(16, 26, 43, .09);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  text-wrap: pretty;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 1.07rem;
+  line-height: 1.62;
+  color: var(--tinta);
+  background: #fff;
+  -webkit-text-size-adjust: 100%;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--azul); }
+
+.envoltorio { max-width: var(--ancho); margin: 0 auto; padding: 0 1.15rem; }
+
+.saltar { position: absolute; left: -9999px; background: var(--azul); color: #fff; padding: .6rem 1rem; }
+.saltar:focus { left: 1rem; top: 1rem; z-index: 100; }
+
+/* ------------------------------------------------------------- шапка */
+
+.cabecera {
+  border-bottom: 1px solid var(--linea);
+  background: #fff;
+  position: sticky; top: 0; z-index: 50;
+}
+.cabecera-fila {
+  display: flex; align-items: center; gap: 1.2rem;
+  flex-wrap: wrap; padding: .75rem 0;
+}
+.marca {
+  font-weight: 700; font-size: 1.16rem; color: var(--azul);
+  text-decoration: none; margin-right: auto; letter-spacing: -.01em;
+}
+.menu { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+.menu a { color: var(--tinta); text-decoration: none; font-size: .96rem; }
+.menu a:hover, .menu a.activo { color: var(--ambar); }
+.menu a.activo { font-weight: 600; }
+.tel-cabecera {
+  font-weight: 700; color: var(--azul); text-decoration: none;
+  white-space: nowrap; font-size: 1.08rem;
+}
+
+/* Кнопка меню нужна только на узком экране */
+.menu-boton { display: none; }
+.menu-boton[hidden] { display: none; }
+
+/* В разметке телефон стоит перед меню — так удобнее на телефоне, где
+   меню уезжает отдельной строкой вниз. На широком экране порядок
+   возвращаем: логотип, меню, телефон справа. */
+.cabecera-fila nav { order: 2; }
+.cabecera-fila .tel-cabecera { order: 3; }
+
+/* ---------------------------------------------------------- обложка */
+
+.portada {
+  position: relative;
+  display: grid; place-items: center;
+  text-align: center;
+  padding: clamp(3rem, 9vw, 5.5rem) 0;
+  color: #fff;
+  background-color: var(--azul-hondo);
+  background-image: var(--bg-s);
+  background-size: cover;
+  background-position: center 45%;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 900px) {
+  .portada { background-image: var(--bg); }
+}
+
+/* Затемнение подобрано так, чтобы фотография читалась, а белый текст
+   оставался контрастным: в середине ~4,5:1 против белого. Плотнее сверху
+   и снизу — там шапка и кнопки. Слишком плотная заливка убивает смысл
+   обложки: получается та же одноцветная подкладка, только дороже. */
+.portada::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+              rgba(8, 32, 60, .70) 0%,
+              rgba(8, 32, 60, .55) 45%,
+              rgba(8, 32, 60, .80) 100%);
+}
+.portada > * { position: relative; }
+
+.portada h1 {
+  margin: 0 auto 1.2rem;
+  font-size: clamp(1.75rem, 4.6vw, 3rem);
+  font-weight: 600; line-height: 1.15;
+  letter-spacing: -.015em;
+  max-width: 20ch;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .35);
+}
+.portada-sub {
+  margin: 0 auto 1.6rem; max-width: 46ch;
+  font-size: 1.1rem; color: #dbe6f2;
+}
+/* margin-inline: auto обязателен. Раньше тут стояло margin: 0, и класс
+   перебивал auto-поля от `section p`: коробка кнопок шириной 720px
+   прижималась к левому краю, а кнопки центровались уже внутри неё —
+   на широком экране это читалось как «съехало влево». */
+.portada-tel {
+  margin-block: 0; margin-inline: auto;
+  display: flex; gap: .8rem;
+  flex-wrap: wrap; justify-content: center;
+}
+
+/* ---------------------------------------------------------- кнопки */
+
+.boton {
+  display: inline-block; text-decoration: none;
+  background: var(--ambar); color: #fff;
+  padding: .85rem 1.6rem; border-radius: var(--radio);
+  font-weight: 600; line-height: 1.2;
+  box-shadow: 0 2px 10px rgba(212, 102, 28, .3);
+  transition: transform .12s ease, background-color .12s ease;
+}
+.boton:hover { background: var(--ambar-claro); transform: translateY(-1px); }
+.boton-grande { font-size: 1.13rem; }
+.boton-alt { background: #1c8a4b; box-shadow: 0 2px 10px rgba(28, 138, 75, .28); }
+.boton-alt:hover { background: #23a259; }
+
+/* -------------------------------------------------------- секции */
+
+section { padding: clamp(2.4rem, 5vw, 3.6rem) 0; }
+section.claro { background: var(--azul-claro); }
+section.verde { background: var(--verde-claro); }
+
+h2 {
+  font-size: clamp(1.45rem, 3.1vw, 2.05rem);
+  font-weight: 600; color: var(--azul);
+  margin: 0 auto .9rem; line-height: 1.22;
+  letter-spacing: -.012em;
+  text-align: center;
+  max-width: 32ch;
+  /* Заголовок разбивается на строки поровну, а не «пять слов и одно».
+     Где браузер не умеет — просто перенос по ширине, ничего не ломается. */
+  text-wrap: balance;
+}
+h3 {
+  font-size: 1.24rem; font-weight: 600; color: var(--azul);
+  margin: 2rem 0 .5rem;
+}
+
+/* Колонка текста стоит ПО ЦЕНТРУ страницы, а не липнет к левому краю
+   широкого контейнера. Сам текст при этом выключен влево — центрованные
+   абзацы длиной в пять строк читать невозможно. */
+section p,
+section ul,
+section ol,
+.aviso,
+.dato,
+.galeria-texto {
+  max-width: var(--ancho-texto);
+  margin-left: auto; margin-right: auto;
+}
+section h3 { max-width: var(--ancho-texto); margin-left: auto; margin-right: auto; }
+section ul li, section ol li { margin-top: .5rem; }
+
+/* Вводный абзац сразу под заголовком секции — по центру, он короткий */
+.entrada {
+  text-align: center; color: var(--tinta-suave);
+  max-width: 54ch; margin: 0 auto 1.8rem;
+}
+
+.lista-limpia { list-style: none; padding: 0; margin: 0; }
+.lista-limpia li { margin-top: .4rem; }
+
+.marcada { list-style: none; padding-left: 0; }
+.marcada li { padding-left: 1.75rem; position: relative; }
+.marcada li::before {
+  content: "✔"; position: absolute; left: 0; top: .05em;
+  color: var(--ambar); font-weight: 700;
+}
+
+/* -------------------------------------------------------- карточки */
+
+.rejilla {
+  display: grid; gap: 1.15rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  max-width: none; margin: 0;
+}
+.ficha {
+  display: block; text-decoration: none; color: inherit;
+  border: 1px solid var(--linea); border-radius: var(--radio);
+  padding: 1.4rem; background: #fff;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.ficha:hover {
+  border-color: var(--ambar); box-shadow: var(--sombra);
+  transform: translateY(-2px);
+}
+.ficha h3 { margin: 0 0 .45rem; font-size: 1.2rem; max-width: none; }
+.ficha p { margin: 0; color: var(--tinta-suave); font-size: .97rem; max-width: none; }
+
+/* Правило владельца польского сайта, проверенное на людях:
+   три карточки в ряду читаются, четыре — нет. */
+.rejilla-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+@media (min-width: 900px) { .rejilla-3 { grid-template-columns: repeat(3, 1fr); } }
+
+/* ------------------------------------------------------ дополнения */
+
+.aviso {
+  background: var(--aviso);
+  border-left: 4px solid var(--aviso-borde);
+  padding: 1.1rem 1.25rem; border-radius: 0 var(--radio) var(--radio) 0;
+  margin-top: 1.6rem;
+}
+.aviso strong { color: #a32020; }
+.aviso p { margin: 0; max-width: none; }
+
+.dato {
+  background: #fff; border: 1px solid var(--linea);
+  border-radius: var(--radio); padding: 1.2rem 1.35rem;
+  box-shadow: var(--sombra); margin-top: 1.4rem;
+}
+.dato p { margin: 0 0 .5rem; max-width: none; }
+.dato p:last-child { margin-bottom: 0; }
+.dato h2 { text-align: left; max-width: none; margin-bottom: .7rem; font-size: 1.25rem; }
+
+.tabla-envoltorio { overflow-x: auto; margin: 1.4rem auto 0; }
+table { border-collapse: collapse; width: 100%; min-width: 420px; }
+th, td { text-align: left; padding: .7rem .85rem; border-bottom: 1px solid var(--linea); }
+th { background: var(--azul-claro); font-weight: 600; }
+
+.cta { text-align: center; }
+.cta p { max-width: 52ch; }
+
+/* --------------------------------------------------------- галерея */
+
+.galeria {
+  display: grid; gap: 1rem; margin: 1.8rem auto 0;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  max-width: none;
+}
+.galeria img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: var(--radio); border: 1px solid var(--linea);
+  background: var(--azul-claro);
+}
+
+/* Студийный кадр детали на белом фоне кадрировать нельзя: от широкой
+   пружины остаётся кусок посередине. Такие вписываем целиком. */
+.galeria img.pieza {
+  object-fit: contain; background: #fff; padding: .6rem;
+}
+/* Соотношение сторон задано заранее — вёрстка не дёргается при загрузке:
+   место под картинку занято с первой отрисовки. */
+
+/* ----------------------------------------------------------- подвал */
+
+.pie {
+  position: relative;
+  background: var(--tinta) center/cover no-repeat;
+  background-image: var(--bg-pie);
+  color: #c9d3e1; margin-top: 0;
+  padding: clamp(2.4rem, 5vw, 3.4rem) 0 1.5rem;
+}
+/* Подвал: фотография должна проступать, иначе это просто тёмная заливка.
+   0,82 сверху даёт белому тексту запас по контрасту около 9:1. */
+.pie::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10, 20, 34, .80), rgba(10, 20, 34, .90));
+}
+.pie > * { position: relative; }
+.pie h2 {
+  color: #fff; font-size: 1.08rem; margin: 0 0 .7rem;
+  text-align: left; max-width: none;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.pie a { color: #fff; }
+.pie p { max-width: none; margin: 0 0 .6rem; }
+.pie-rejilla {
+  display: grid; gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.tel-pie { font-size: 1.3rem; font-weight: 700; text-decoration: none; }
+.pie-zona {
+  margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, .14);
+  padding-top: 1.2rem; text-align: center;
+}
+.pie-legal { font-size: .87rem; color: #93a0b3; }
+
+/* --------------------------- плавающая кнопка звонка на телефоне */
+
+.tel-flotante { display: none; }
+
+@media (max-width: 767px) {
+  .marca { font-size: 1.02rem; margin-right: .6rem; }
+  .cabecera-fila { gap: .6rem; row-gap: 0; }
+
+  /* Кнопка «Menú». Селектор :not([hidden]) — чтобы до выполнения скрипта
+     кнопки не было: без JS вместо неё показывается сам список. */
+  .menu-boton:not([hidden]) {
+    display: inline-flex; align-items: center; gap: .5rem;
+    order: 2; margin-left: auto;
+    background: none; border: 1px solid var(--linea);
+    border-radius: 8px; padding: .45rem .7rem;
+    font: inherit; font-size: .95rem; font-weight: 600;
+    color: var(--azul); cursor: pointer;
+  }
+  .menu-rayas, .menu-rayas::before, .menu-rayas::after {
+    display: block; width: 17px; height: 2px;
+    background: var(--azul); border-radius: 2px;
+  }
+  .menu-rayas { position: relative; }
+  .menu-rayas::before, .menu-rayas::after { content: ""; position: absolute; left: 0; }
+  .menu-rayas::before { top: -5px; }
+  .menu-rayas::after  { top: 5px; }
+  .menu-boton[aria-expanded="true"] { background: var(--azul-claro); }
+
+  .tel-cabecera { order: 3; margin-left: 0; }
+
+  /* Список — во всю ширину, под строкой с логотипом */
+  .cabecera-fila nav { order: 4; width: 100%; }
+  .menu {
+    flex-direction: column; gap: 0; width: 100%;
+    margin-top: .5rem; border-top: 1px solid var(--linea);
+  }
+  .menu li { border-bottom: 1px solid var(--linea); }
+  .menu a { display: block; padding: .85rem .1rem; font-size: 1.03rem; }
+
+  /* Скрипт отработал — список прячется до нажатия на кнопку.
+     Если скрипта нет, класса con-js тоже нет, и меню видно сразу.
+     Прячем сам список, а не обёртку: через :has() было бы короче,
+     но он не работает в старых Firefox, а меню — это навигация. */
+  body.con-js .menu { display: none; }
+  body.con-js .menu.abierto { display: flex; }
+
+  /* Шапку на телефоне не прилепляем. Внизу справа и так висит кнопка
+     вызова: телефон на экране есть всегда, а липкая шапка тут только
+     отъедала бы высоту. Решение проверено на польском сайте. */
+  .cabecera { position: static; }
+
+  .pie-rejilla { gap: 1.6rem; }
+  .pie { padding-bottom: 5.5rem; }
+
+  .tel-flotante {
+    display: flex; align-items: center; justify-content: center;
+    position: fixed; right: 1rem; bottom: 1rem; z-index: 999;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--ambar); box-shadow: 0 4px 16px rgba(0, 0, 0, .38);
+  }
+  .tel-flotante svg { width: 29px; height: 29px; fill: #fff; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .boton, .ficha { transition: none; }
+}
