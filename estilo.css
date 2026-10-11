@@ -375,3 +375,91 @@ th { background: var(--azul-claro); font-weight: 600; }
   html { scroll-behavior: auto; }
   .boton, .ficha { transition: none; }
 }
+
+/* ==========================================================================
+   Приёмы с польского сайта владельца: телефон как первый экран, полоса
+   зоны под обложкой, марки плитками, фотография внутри карточки выбора.
+   Копировалась логика, а не разметка: там это блоки WordPress.
+   ========================================================================== */
+
+/* ------------------------------------------- телефон на первом экране */
+
+/* На польском сайте номер — самый крупный элемент обложки, крупнее
+   подзаголовка. Это не украшение: половина посетителей приходит
+   со сломанными воротами и звонит, не читая. */
+.portada-llamada {
+  margin: 0 auto .5rem;
+  font-size: 1.05rem; letter-spacing: .02em;
+  color: #cfe0f0; text-transform: uppercase;
+}
+
+.numero-grande {
+  display: inline-block; text-decoration: none;
+  font-size: clamp(1.6rem, 5.2vw, 2.7rem);
+  font-weight: 700; line-height: 1;
+  letter-spacing: .01em;
+  color: #fff;
+  padding: .62em 1.05em;
+  border: 2px solid rgba(255, 255, 255, .85);
+  border-radius: 999px;
+  background: rgba(8, 32, 60, .35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .25);
+  transition: background-color .14s ease, transform .14s ease;
+  white-space: nowrap;
+}
+.numero-grande:hover {
+  background: rgba(255, 255, 255, .16);
+  transform: translateY(-1px);
+}
+
+.portada-tel-alt { margin-top: .9rem; }
+
+/* ------------------------------------------------ полоса зоны выезда */
+
+/* Смысл ровно один: человек должен увидеть свой город, не прокручивая.
+   Ссылок в списке нет — восемнадцать ссылок на одну страницу это спам. */
+.franja-zona {
+  background: var(--azul-claro);
+  border-bottom: 1px solid var(--linea);
+  padding: .85rem 0;
+}
+.franja-zona p {
+  margin: 0; max-width: none; text-align: center;
+  font-size: .97rem; line-height: 1.9;
+}
+.ciudad-ok { white-space: nowrap; margin-right: .15rem; }
+.ciudad-ok::before {
+  content: "\2713\00a0";
+  color: #1a7f4b; font-weight: 700;
+}
+
+/* ----------------------------------------------------- марки плитками */
+
+.marcas-rejilla {
+  list-style: none; margin: 1.3rem 0 0; padding: 0;
+  display: grid; gap: .7rem;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  max-width: none;
+}
+.marca-plaka {
+  margin: 0; padding: .85rem .6rem;
+  background: #fff; border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  text-align: center; font-weight: 600;
+  font-size: 1.02rem; color: var(--azul);
+  box-shadow: 0 1px 3px rgba(13, 59, 102, .07);
+}
+
+/* ------------------------------------- карточка выбора с фотографией */
+
+.ficha-foto { padding: 0; overflow: hidden; }
+.ficha-foto img {
+  display: block; width: 100%;
+  aspect-ratio: 4 / 3; object-fit: cover;
+  margin: 0;
+}
+.ficha-texto { display: block; padding: 1.1rem 1.25rem 1.3rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .numero-grande { transition: none; }
+}
