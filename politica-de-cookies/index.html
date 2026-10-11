@@ -38,6 +38,21 @@
       <ul class="menu" id="menu-principal">
 <li><a href="/muestra/">Inicio</a></li>
 <li class="tiene-hijos">
+      <a href="/muestra/servicios/">Servicios</a>
+      <button class="sub-boton" type="button" aria-expanded="false"
+              aria-label="Desplegar Servicios"><span aria-hidden="true"></span></button>
+      <ul class="submenu">
+        <li><a href="/muestra/puerta-garaje-seccional/">Puertas seccionales</a></li>
+        <li><a href="/muestra/puerta-garaje-basculante/">Puertas basculantes</a></li>
+        <li><a href="/muestra/puerta-corredera/">Puertas correderas</a></li>
+        <li><a href="/muestra/puerta-batiente/">Puertas batientes</a></li>
+        <li><a href="/muestra/puerta-industrial/">Puertas industriales</a></li>
+        <li><a href="/muestra/barreras/">Barreras</a></li>
+        <li><a href="/muestra/persiana-enrollable/">Persianas enrollables</a></li>
+        <li><a href="/muestra/averias/">Averías frecuentes</a></li>
+      </ul>
+    </li>
+<li class="tiene-hijos">
       <a href="/muestra/marcas/">Marcas</a>
       <button class="sub-boton" type="button" aria-expanded="false"
               aria-label="Desplegar Marcas"><span aria-hidden="true"></span></button>
@@ -57,33 +72,8 @@
         <li><a href="/muestra/marcas/">Y otras marcas</a></li>
       </ul>
     </li>
-<li class="tiene-hijos">
-      <a href="/muestra/servicios/">Servicios</a>
-      <button class="sub-boton" type="button" aria-expanded="false"
-              aria-label="Desplegar Servicios"><span aria-hidden="true"></span></button>
-      <ul class="submenu">
-        <li><a href="/muestra/puerta-garaje-seccional/">Puertas seccionales</a></li>
-        <li><a href="/muestra/puerta-garaje-basculante/">Puertas basculantes</a></li>
-        <li><a href="/muestra/puerta-corredera/">Puertas correderas</a></li>
-        <li><a href="/muestra/puerta-batiente/">Puertas batientes</a></li>
-        <li><a href="/muestra/puerta-industrial/">Puertas industriales</a></li>
-        <li><a href="/muestra/barreras/">Barreras</a></li>
-        <li><a href="/muestra/persiana-enrollable/">Persianas enrollables</a></li>
-      </ul>
-    </li>
-<li class="tiene-hijos">
-      <a href="/muestra/averias/">Averías</a>
-      <button class="sub-boton" type="button" aria-expanded="false"
-              aria-label="Desplegar Averías"><span aria-hidden="true"></span></button>
-      <ul class="submenu">
-        <li><a href="/muestra/averias/cable-roto-puerta-seccional/">Cable roto o enredado</a></li>
-        <li><a href="/muestra/averias/muelle-roto-puerta-garaje/">Muelle roto</a></li>
-        <li><a href="/muestra/averias/puerta-garaje-no-se-queda-arriba/">No se queda arriba</a></li>
-        <li><a href="/muestra/averias/puerta-corredera-ruido-carros/">La corredera chirría</a></li>
-        <li><a href="/muestra/averias/">Todas las averías</a></li>
-      </ul>
-    </li>
 <li><a href="/muestra/zona-de-actuacion/">Zona de actuación</a></li>
+<li><a href="/muestra/sobre-nosotros/">Sobre nosotros</a></li>
 <li><a href="/muestra/contacto/">Contacto</a></li>
       </ul>
     </nav>
@@ -187,6 +177,7 @@
       <ul class="lista-limpia">
         <li><a href="/muestra/averias/">Averías frecuentes</a></li>
         <li><a href="/muestra/zona-de-actuacion/">Zona de actuación</a></li>
+        <li><a href="/muestra/sobre-nosotros/">Sobre nosotros</a></li>
         <li><a href="/muestra/contacto/">Contacto</a></li>
         <li><a href="/muestra/aviso-legal/">Aviso legal</a></li>
         <li><a href="/muestra/politica-de-privacidad/">Política de privacidad</a></li>
@@ -238,6 +229,10 @@
   }
 })();
 </script>
+
+<!-- Карусель. defer: скрипт только надстраивает то, что уже
+     работает на CSS, поэтому ждать его разбором страницы незачем. -->
+<script src="/muestra/carrusel.js" defer></script>
 
 </body>
 </html>

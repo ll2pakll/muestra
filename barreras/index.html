@@ -38,6 +38,21 @@
       <ul class="menu" id="menu-principal">
 <li><a href="/muestra/">Inicio</a></li>
 <li class="tiene-hijos">
+      <a href="/muestra/servicios/" class="activo">Servicios</a>
+      <button class="sub-boton" type="button" aria-expanded="false"
+              aria-label="Desplegar Servicios"><span aria-hidden="true"></span></button>
+      <ul class="submenu">
+        <li><a href="/muestra/puerta-garaje-seccional/">Puertas seccionales</a></li>
+        <li><a href="/muestra/puerta-garaje-basculante/">Puertas basculantes</a></li>
+        <li><a href="/muestra/puerta-corredera/">Puertas correderas</a></li>
+        <li><a href="/muestra/puerta-batiente/">Puertas batientes</a></li>
+        <li><a href="/muestra/puerta-industrial/">Puertas industriales</a></li>
+        <li><a href="/muestra/barreras/" class="activo" aria-current="page">Barreras</a></li>
+        <li><a href="/muestra/persiana-enrollable/">Persianas enrollables</a></li>
+        <li><a href="/muestra/averias/">Averías frecuentes</a></li>
+      </ul>
+    </li>
+<li class="tiene-hijos">
       <a href="/muestra/marcas/">Marcas</a>
       <button class="sub-boton" type="button" aria-expanded="false"
               aria-label="Desplegar Marcas"><span aria-hidden="true"></span></button>
@@ -57,33 +72,8 @@
         <li><a href="/muestra/marcas/">Y otras marcas</a></li>
       </ul>
     </li>
-<li class="tiene-hijos">
-      <a href="/muestra/servicios/" class="activo">Servicios</a>
-      <button class="sub-boton" type="button" aria-expanded="false"
-              aria-label="Desplegar Servicios"><span aria-hidden="true"></span></button>
-      <ul class="submenu">
-        <li><a href="/muestra/puerta-garaje-seccional/">Puertas seccionales</a></li>
-        <li><a href="/muestra/puerta-garaje-basculante/">Puertas basculantes</a></li>
-        <li><a href="/muestra/puerta-corredera/">Puertas correderas</a></li>
-        <li><a href="/muestra/puerta-batiente/">Puertas batientes</a></li>
-        <li><a href="/muestra/puerta-industrial/">Puertas industriales</a></li>
-        <li><a href="/muestra/barreras/" class="activo" aria-current="page">Barreras</a></li>
-        <li><a href="/muestra/persiana-enrollable/">Persianas enrollables</a></li>
-      </ul>
-    </li>
-<li class="tiene-hijos">
-      <a href="/muestra/averias/">Averías</a>
-      <button class="sub-boton" type="button" aria-expanded="false"
-              aria-label="Desplegar Averías"><span aria-hidden="true"></span></button>
-      <ul class="submenu">
-        <li><a href="/muestra/averias/cable-roto-puerta-seccional/">Cable roto o enredado</a></li>
-        <li><a href="/muestra/averias/muelle-roto-puerta-garaje/">Muelle roto</a></li>
-        <li><a href="/muestra/averias/puerta-garaje-no-se-queda-arriba/">No se queda arriba</a></li>
-        <li><a href="/muestra/averias/puerta-corredera-ruido-carros/">La corredera chirría</a></li>
-        <li><a href="/muestra/averias/">Todas las averías</a></li>
-      </ul>
-    </li>
 <li><a href="/muestra/zona-de-actuacion/">Zona de actuación</a></li>
+<li><a href="/muestra/sobre-nosotros/">Sobre nosotros</a></li>
 <li><a href="/muestra/contacto/">Contacto</a></li>
       </ul>
     </nav>
@@ -110,6 +100,8 @@
 <section>
   <div class="envoltorio">
     <h2>Qué hay dentro de una barrera</h2>
+    <div class="fila">
+      <div class="fila-texto">
     <p>Una barrera parece el equipo más simple de todos y es, con diferencia, el que
       más trabaja. En una comunidad grande o en un aparcamiento hace cientos de
       maniobras al día: más ciclos en un mes que una puerta de garaje en varios años.</p>
@@ -123,12 +115,13 @@
       brazo entero en cada maniobra, y con cientos de maniobras al día eso se nota
       muy rápido. <strong>La mayoría de reductores rotos que vemos son consecuencia
       de un muelle mal reglado</strong>, no de un defecto del reductor.</p>
-
-<div class="galeria">
-  <img src="/muestra/img/barrera-recepcion.jpg" srcset="/muestra/img/barrera-recepcion-500.jpg 500w, /muestra/img/barrera-recepcion.jpg 1000w" sizes="(max-width: 700px) 100vw, 350px" alt="Barrera de acceso abierta junto a una recepción" loading="lazy" decoding="async">
-  <img src="/muestra/img/barrera-mastil.jpg" srcset="/muestra/img/barrera-mastil-500.jpg 500w, /muestra/img/barrera-mastil.jpg 1000w" sizes="(max-width: 700px) 100vw, 350px" alt="Barrera de aparcamiento con el mástil levantado y la furgoneta de servicio" loading="lazy" decoding="async">
-  <img src="/muestra/img/barrera-cabezal.jpg" srcset="/muestra/img/barrera-cabezal-500.jpg 500w, /muestra/img/barrera-cabezal.jpg 1000w" sizes="(max-width: 700px) 100vw, 350px" alt="Cabezal de una barrera abierto durante la reparación" loading="lazy" decoding="async">
-</div>
+      </div>
+<div class="carrusel car-3">
+    <div class="diapo"><img srcset="/muestra/img/barrera-recepcion-500.jpg 500w, /muestra/img/barrera-recepcion-750.jpg 750w, /muestra/img/barrera-recepcion.jpg 1000w" sizes="(max-width: 899px) calc(100vw - 2.3rem), 540px" src="/muestra/img/barrera-recepcion.jpg" alt="Barrera de acceso abierta junto a una recepción" loading="lazy" decoding="async"></div>
+    <div class="diapo"><img srcset="/muestra/img/barrera-mastil-500.jpg 500w, /muestra/img/barrera-mastil-750.jpg 750w, /muestra/img/barrera-mastil.jpg 1000w" sizes="(max-width: 899px) calc(100vw - 2.3rem), 540px" src="/muestra/img/barrera-mastil.jpg" alt="Barrera de aparcamiento con el mástil levantado y la furgoneta de servicio" loading="lazy" decoding="async"></div>
+    <div class="diapo"><img srcset="/muestra/img/barrera-cabezal-500.jpg 500w, /muestra/img/barrera-cabezal-750.jpg 750w, /muestra/img/barrera-cabezal.jpg 1000w" sizes="(max-width: 899px) calc(100vw - 2.3rem), 540px" src="/muestra/img/barrera-cabezal.jpg" alt="Cabezal de una barrera abierto durante la reparación" loading="lazy" decoding="async"></div>
+  </div>
+    </div>
   </div>
 </section>
 
@@ -250,6 +243,7 @@
       <ul class="lista-limpia">
         <li><a href="/muestra/averias/">Averías frecuentes</a></li>
         <li><a href="/muestra/zona-de-actuacion/">Zona de actuación</a></li>
+        <li><a href="/muestra/sobre-nosotros/">Sobre nosotros</a></li>
         <li><a href="/muestra/contacto/">Contacto</a></li>
         <li><a href="/muestra/aviso-legal/">Aviso legal</a></li>
         <li><a href="/muestra/politica-de-privacidad/">Política de privacidad</a></li>
@@ -301,6 +295,10 @@
   }
 })();
 </script>
+
+<!-- Карусель. defer: скрипт только надстраивает то, что уже
+     работает на CSS, поэтому ждать его разбором страницы незачем. -->
+<script src="/muestra/carrusel.js" defer></script>
 
 </body>
 </html>

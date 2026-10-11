@@ -17,8 +17,51 @@
   --linea:        #dfe6ee;
   --ancho:        1140px;
   --ancho-texto:  720px;
-  --radio:        10px;
+  --radio:        12px;
+  --radio-pildora: 999px;
   --sombra:       0 2px 14px rgba(16, 26, 43, .09);
+  --sombra-alta:  0 14px 30px rgba(16, 26, 43, .16);
+  --verde:        #1a7f4b;
+
+  /* ------------------------------------------- длительности переходов
+
+     Снято с польского сайта владельца: карточки там поднимаются
+     за 0,35 с, фотографии увеличиваются за 1 с, логотипы за 0,5 с.
+     Медленно и мягко — движение замечаешь, но оно не дёргает.
+     У меня стояло 0,12 с и сдвиг на 2 px: слишком быстро и слишком
+     мало, чтобы прочитаться как реакция, — выглядело как подёргивание.
+     ------------------------------------------------------------------ */
+  --paso-corto: .22s;   /* цвет ссылки, фон кнопки   */
+  --paso:       .35s;   /* подъём карточки, тень     */
+  --paso-largo: .8s;    /* увеличение фотографии     */
+
+  /* ---------------------------------------------------- шкала шрифтов
+
+     Одна лестница на весь сайт. Раньше каждый размер стоял своим числом
+     в своём правиле, а на телефоне поднималось только тело текста —
+     лестница схлопывалась: h3 выходил 19,8 px при абзаце 18,9, то есть
+     заголовок переставал быть заголовком.
+
+     Мерка снята с польского сайта владельца, где это выстроено:
+     на телефоне абзац 18, h3 22,8, h2 26–28,5 — шаг примерно 1,27.
+     Нижние границы clamp держат этот шаг на узком экране, верхние
+     дают на компьютере тот же размер, что у него (h2 36,8, h1 46,4).
+
+     Мелкого текста на сайте нет сознательно: «мелкий шрифт —
+     отворот-поворот клиентам, особенно пожилым». Самое мелкое здесь —
+     копирайт в подвале, 16 px.
+     ------------------------------------------------------------------ */
+  --txt:         1.16rem;   /* 18,6 — абзацы и списки, одинаково везде */
+  --txt-apoyo:   1.08rem;   /* 17,3 — карточки, полоса зоны, подписи    */
+  --txt-menudo:  1rem;      /* 16   — копирайт, самое мелкое            */
+  --txt-grande:  1.22rem;   /* 19,5 — подзаголовок обложки              */
+  --etiqueta:    1.02rem;   /* 16,3 — прописные заголовки колонок       */
+
+  --h3:         clamp(1.45rem, 1.2rem + 1.1vw, 1.62rem);
+  --h2:         clamp(1.72rem, 1.1rem + 2.5vw, 2.3rem);
+  --h1:         clamp(1.95rem, 1.2rem + 2.8vw, 2.65rem);
+  --h1-portada: clamp(2.1rem,  1.3rem + 3.2vw, 2.9rem);
+  --h-ficha:    1.28rem;    /* 20,5 — заголовок карточки */
 }
 
 * { box-sizing: border-box; }
@@ -29,7 +72,7 @@ body {
   margin: 0;
   text-wrap: pretty;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: 1.13rem;
+  font-size: var(--txt);
   line-height: 1.62;
   color: var(--tinta);
   background: #fff;
@@ -37,7 +80,8 @@ body {
 }
 
 img { max-width: 100%; height: auto; display: block; }
-a { color: var(--azul); }
+a { color: var(--azul); transition: color var(--paso-corto) ease; }
+section a:not(.boton):not(.ficha):hover { color: var(--ambar); }
 
 .envoltorio { max-width: var(--ancho); margin: 0 auto; padding: 0 1.15rem; }
 
@@ -52,20 +96,23 @@ a { color: var(--azul); }
   position: sticky; top: 0; z-index: 50;
 }
 .cabecera-fila {
-  display: flex; align-items: center; gap: 1.2rem;
-  flex-wrap: wrap; padding: .75rem 0;
+  display: flex; align-items: center; gap: 1.6rem;
+  flex-wrap: wrap; padding: .95rem 0;
 }
 .marca {
-  font-weight: 700; font-size: 1.16rem; color: var(--azul);
+  font-weight: 700; font-size: 1.2rem; color: var(--azul);
   text-decoration: none; margin-right: auto; letter-spacing: -.01em;
 }
-.menu { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
-.menu a { color: var(--tinta); text-decoration: none; font-size: .96rem; }
+.menu { display: flex; gap: 1.55rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+.menu a {
+  color: var(--tinta); text-decoration: none; font-size: 1.01rem;
+  transition: color var(--paso-corto) ease;
+}
 .menu a:hover, .menu a.activo { color: var(--ambar); }
 .menu a.activo { font-weight: 600; }
 .tel-cabecera {
   font-weight: 700; color: var(--azul); text-decoration: none;
-  white-space: nowrap; font-size: 1.08rem;
+  white-space: nowrap; font-size: 1.13rem;
 }
 
 /* Кнопка меню нужна только на узком экране */
@@ -112,7 +159,7 @@ a { color: var(--azul); }
 
 .portada h1 {
   margin: 0 auto .85rem;
-  font-size: clamp(1.9rem, 4.1vw, 2.8rem);
+  font-size: var(--h1-portada);
   font-weight: 600; line-height: 1.12;
   letter-spacing: -.015em;
   max-width: 20ch;
@@ -120,7 +167,7 @@ a { color: var(--azul); }
 }
 .portada-sub {
   margin: 0 auto 1.25rem; max-width: 50ch;
-  font-size: 1.24rem; line-height: 1.45; color: #e3edf7;
+  font-size: var(--txt-grande); line-height: 1.45; color: #e3edf7;
 }
 /* margin-inline: auto обязателен. Раньше тут стояло margin: 0, и класс
    перебивал auto-поля от `section p`: коробка кнопок шириной 720px
@@ -134,18 +181,41 @@ a { color: var(--azul); }
 
 /* ---------------------------------------------------------- кнопки */
 
+/* Кнопки-таблетки, как у владельца: радиус 40 px, то есть полукруг
+   по торцам. Прямоугольник со скруглением 10 px рядом с его сайтом
+   выглядит как поле ввода, а не как кнопка. */
 .boton {
   display: inline-block; text-decoration: none;
   background: var(--ambar); color: #fff;
-  padding: .85rem 1.6rem; border-radius: var(--radio);
+  padding: .9rem 1.9rem; border-radius: var(--radio-pildora);
   font-weight: 600; line-height: 1.2;
-  box-shadow: 0 2px 10px rgba(212, 102, 28, .3);
-  transition: transform .12s ease, background-color .12s ease;
+  box-shadow: 0 3px 12px rgba(212, 102, 28, .28);
+  transition: background-color var(--paso-corto) ease,
+              transform var(--paso-corto) ease,
+              box-shadow var(--paso-corto) ease;
 }
-.boton:hover { background: var(--ambar-claro); transform: translateY(-1px); }
-.boton-grande { font-size: 1.13rem; }
-.boton-alt { background: #1c8a4b; box-shadow: 0 2px 10px rgba(28, 138, 75, .28); }
-.boton-alt:hover { background: #23a259; }
+.boton:hover {
+  background: var(--ambar-claro); transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 102, 28, .34);
+}
+.boton:active { transform: translateY(0); }
+.boton-grande { font-size: var(--txt-grande); padding: 1rem 2.2rem; }
+.boton-alt { background: var(--verde); box-shadow: 0 3px 12px rgba(26, 127, 75, .28); }
+.boton-alt:hover { background: #23a259; box-shadow: 0 8px 20px rgba(26, 127, 75, .34); }
+
+/* Телефон на обложке — самое громкое, что есть на странице. Поэтому
+   заливка белым по тёмной фотографии, а не контур: контурная кнопка
+   рядом с залитым WhatsApp читалась как второстепенная, хотя звонок
+   и есть главное действие. */
+.boton-telefono {
+  background: #fff; color: var(--azul-hondo);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .3);
+  letter-spacing: .01em;
+}
+.boton-telefono:hover {
+  background: #fff; color: var(--azul-hondo);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .38);
+}
 
 /* -------------------------------------------------------- секции */
 
@@ -154,7 +224,7 @@ section.claro { background: var(--azul-claro); }
 section.verde { background: var(--verde-claro); }
 
 h2 {
-  font-size: clamp(1.45rem, 3.1vw, 2.05rem);
+  font-size: var(--h2);
   font-weight: 600; color: var(--azul);
   margin: 0 auto .9rem; line-height: 1.22;
   letter-spacing: -.012em;
@@ -165,7 +235,7 @@ h2 {
   text-wrap: balance;
 }
 h3 {
-  font-size: 1.24rem; font-weight: 600; color: var(--azul);
+  font-size: var(--h3); font-weight: 600; color: var(--azul);
   margin: 2rem 0 .5rem;
 }
 
@@ -195,9 +265,12 @@ section ul li, section ol li { margin-top: .5rem; }
 
 .marcada { list-style: none; padding-left: 0; }
 .marcada li { padding-left: 1.75rem; position: relative; }
+/* Галочка зелёная, а не оранжевая. Оранжевая на этом сайте значит
+   «внимание» (кнопка, акцент, предупреждение), и список услуг
+   с оранжевыми отметками читался как список оговорок. */
 .marcada li::before {
   content: "✔"; position: absolute; left: 0; top: .05em;
-  color: var(--ambar); font-weight: 700;
+  color: var(--verde); font-weight: 700;
 }
 
 /* -------------------------------------------------------- карточки */
@@ -211,19 +284,30 @@ section ul li, section ol li { margin-top: .5rem; }
   display: block; text-decoration: none; color: inherit;
   border: 1px solid var(--linea); border-radius: var(--radio);
   padding: 1.4rem; background: #fff;
-  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  box-shadow: 0 1px 3px rgba(16, 26, 43, .05);
+  transition: transform var(--paso) ease,
+              box-shadow var(--paso) ease,
+              border-color var(--paso) ease;
 }
+/* Подъём на 6 px за 0,35 с. У владельца карточки воронки поднимаются
+   на 15 px, но у него они втрое крупнее — здесь столько выглядело бы
+   прыжком. Важна не величина, а то, что движение успеваешь увидеть. */
 .ficha:hover {
-  border-color: var(--ambar); box-shadow: var(--sombra);
-  transform: translateY(-2px);
+  border-color: var(--ambar); box-shadow: var(--sombra-alta);
+  transform: translateY(-6px);
 }
-.ficha h3 { margin: 0 0 .45rem; font-size: 1.2rem; max-width: none; }
-.ficha p { margin: 0; color: var(--tinta-suave); font-size: .97rem; max-width: none; }
+.ficha h3 { transition: color var(--paso-corto) ease; }
+.ficha:hover h3 { color: var(--ambar); }
+.ficha h3 { margin: 0 0 .45rem; font-size: var(--h-ficha); max-width: none; }
+.ficha p { margin: 0; color: var(--tinta-suave); font-size: var(--txt-apoyo); max-width: none; }
 
 /* Правило владельца польского сайта, проверенное на людях:
-   три карточки в ряду читаются, четыре — нет. */
-.rejilla-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-@media (min-width: 900px) { .rejilla-3 { grid-template-columns: repeat(3, 1fr); } }
+   три карточки в ряду читаются, четыре — нет.
+
+   Промежуточной ширины, где получается «две и одна», тут быть не должно:
+   осиротевшая карточка во второй строке занимает полряда и выглядит
+   как ошибка вёрстки. Поэтому либо три в ряд, либо столбиком. */
+.rejilla-3 { grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); }
 
 /* ------------------------------------------------------ дополнения */
 
@@ -243,11 +327,16 @@ section ul li, section ol li { margin-top: .5rem; }
 }
 .dato p { margin: 0 0 .5rem; max-width: none; }
 .dato p:last-child { margin-bottom: 0; }
-.dato h2 { text-align: left; max-width: none; margin-bottom: .7rem; font-size: 1.25rem; }
+.dato h2 { text-align: left; max-width: none; margin-bottom: .7rem; font-size: var(--h-ficha); }
 
 .tabla-envoltorio { overflow-x: auto; margin: 1.4rem auto 0; }
 table { border-collapse: collapse; width: 100%; min-width: 420px; }
-th, td { text-align: left; padding: .7rem .85rem; border-bottom: 1px solid var(--linea); }
+/* Ячейки живут тем же размером, что абзац. Раньше таблица наследовала
+   его молча, и любая правка тела текста уводила её в сторону. */
+th, td {
+  text-align: left; font-size: var(--txt);
+  padding: .82rem 1rem; border-bottom: 1px solid var(--linea);
+}
 th { background: var(--azul-claro); font-weight: 600; }
 
 .cta { text-align: center; }
@@ -291,7 +380,7 @@ th { background: var(--azul-claro); font-weight: 600; }
 }
 .pie > * { position: relative; }
 .pie h2 {
-  color: #fff; font-size: 1.08rem; margin: 0 0 .7rem;
+  color: #fff; font-size: var(--etiqueta); margin: 0 0 .7rem;
   text-align: left; max-width: none;
   text-transform: uppercase; letter-spacing: .06em;
 }
@@ -306,7 +395,7 @@ th { background: var(--azul-claro); font-weight: 600; }
   margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, .14);
   padding-top: 1.2rem; text-align: center;
 }
-.pie-legal { font-size: .87rem; color: #93a0b3; }
+.pie-legal { font-size: var(--txt-menudo); color: #a9b5c6; }
 
 /* --------------------------- плавающая кнопка звонка на телефоне */
 
@@ -398,19 +487,25 @@ th { background: var(--azul-claro); font-weight: 600; }
   font-size: clamp(1.75rem, 4.2vw, 2.25rem);
   font-weight: 700; line-height: 1;
   letter-spacing: .01em;
-  color: #fff;
-  padding: .52em 1em;
-  border: 2px solid rgba(255, 255, 255, .85);
-  border-radius: 999px;
-  background: rgba(8, 32, 60, .35);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, .25);
-  transition: background-color .14s ease, transform .14s ease;
+  /* Заливка белым, а не контур по тёмной фотографии.
+
+     Контурная кнопка стояла рядом с залитым зелёным WhatsApp, и главное
+     действие страницы — позвонить — выглядело второстепенным. У владельца
+     наоборот: «Zadzwoń» залит, «Napisz» контурный. */
+  color: var(--azul-hondo);
+  padding: .52em 1.1em;
+  border: 0;
+  border-radius: var(--radio-pildora);
+  background: #fff;
+  box-shadow: 0 5px 22px rgba(0, 0, 0, .32);
+  transition: transform var(--paso-corto) ease, box-shadow var(--paso-corto) ease;
   white-space: nowrap;
 }
 .numero-grande:hover {
-  background: rgba(255, 255, 255, .16);
-  transform: translateY(-1px);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .4);
 }
+.numero-grande:active { transform: translateY(0); }
 
 .portada-tel { align-items: center; }
 
@@ -425,12 +520,12 @@ th { background: var(--azul-claro); font-weight: 600; }
 }
 .franja-zona p {
   margin: 0; max-width: none; text-align: center;
-  font-size: .97rem; line-height: 1.9;
+  font-size: var(--txt-apoyo); line-height: 1.9;
 }
 .ciudad-ok { white-space: nowrap; margin-right: .15rem; }
 .ciudad-ok::before {
   content: "\2713\00a0";
-  color: #1a7f4b; font-weight: 700;
+  color: var(--verde); font-weight: 700;
 }
 
 /* ----------------------------------------------------- марки плитками */
@@ -442,12 +537,21 @@ th { background: var(--azul-claro); font-weight: 600; }
   max-width: none;
 }
 .marca-plaka {
-  margin: 0; padding: .85rem .6rem;
+  margin: 0; padding: .95rem .6rem;
   background: #fff; border: 1px solid var(--linea);
   border-radius: var(--radio);
   text-align: center; font-weight: 600;
-  font-size: 1.02rem; color: var(--azul);
+  font-size: var(--txt-apoyo); color: var(--azul);
   box-shadow: 0 1px 3px rgba(13, 59, 102, .07);
+  transition: transform .5s ease, box-shadow var(--paso) ease,
+              border-color var(--paso) ease;
+}
+/* Логотипы у владельца растут на наведении сильнее прочего (1,12).
+   Здесь это текстовые плитки, поэтому 1,05 — больше выглядело бы
+   нарочито. */
+.marca-plaka:hover {
+  transform: scale(1.05); border-color: var(--azul);
+  box-shadow: 0 8px 20px rgba(13, 59, 102, .14);
 }
 
 /* ------------------------------------- карточка выбора с фотографией */
@@ -455,9 +559,16 @@ th { background: var(--azul-claro); font-weight: 600; }
 .ficha-foto { padding: 0; overflow: hidden; }
 .ficha-foto img {
   display: block; width: 100%;
-  aspect-ratio: 4 / 3; object-fit: cover;
+  /* 3:2, а не 4:3. В одну колонку на телефоне кадр 4:3 занимает
+     281 px высоты при ширине 375 — фотография давит текст карточки,
+     ради которого карточка и существует. */
+  aspect-ratio: 3 / 2; object-fit: cover;
   margin: 0;
+  /* Медленное увеличение — приём владельца (.scale-effect, 1 с).
+     Рамка карточки обрезает его, поэтому край не дёргается. */
+  transition: transform var(--paso-largo) ease;
 }
+.ficha-foto:hover img { transform: scale(1.045); }
 .ficha-texto { display: block; padding: 1.1rem 1.25rem 1.3rem; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -526,7 +637,7 @@ th { background: var(--azul-claro); font-weight: 600; }
   }
   .submenu a {
     display: block; padding: .5rem .95rem;
-    white-space: nowrap; font-size: .97rem;
+    white-space: nowrap; font-size: 1.01rem;
   }
   .submenu a:hover { background: var(--azul-claro); color: var(--azul); }
 }
@@ -571,23 +682,53 @@ th { background: var(--azul-claro); font-weight: 600; }
               rgba(13, 59, 102, .96) 100%);
 }
 .portada-fina h1 {
-  font-size: clamp(1.55rem, 3.4vw, 2.3rem);
+  font-size: var(--h1);
   margin-bottom: .55rem; max-width: 26ch;
 }
 .portada-fina .portada-sub {
-  margin-bottom: 0; font-size: 1.18rem; max-width: 58ch;
+  margin-bottom: 0; font-size: var(--txt-grande); max-width: 58ch;
 }
 
-/* --------------------------------------------------- размер шрифта */
+/* Отдельной мобильной подгонки размеров тут больше нет: шкала
+   в :root одна на все ширины, а заголовки сжимаются сами через clamp.
+   Раньше здесь поднималось тело текста, а заголовки и карточки
+   оставались на месте — на телефоне h3 переставал отличаться
+   от абзаца, а текст в карточках оказывался мельче основного. */
 
-/* Владелец польского сайта держит на телефоне 18px намеренно:
-   «мелкий шрифт — отворот-поворот клиентам, особенно пожилым». */
-@media (max-width: 767px) {
-  body { font-size: 1.18rem; line-height: 1.58; }
-  .ficha p { font-size: 1.04rem; }
-  .franja-zona p { font-size: 1.02rem; }
+
+/* --------------------------------------- фотографии: курсор и рамка */
+
+/* Снимок в карусели открывается во весь экран по клику, и это должно
+   быть видно до клика: лупа курсора плюс лёгкое приближение. Медленно
+   (0,8 с) — приём владельца, у него .scale-effect идёт целую секунду. */
+.carrusel .diapo img { transition: transform var(--paso-largo) ease; }
+.carrusel:hover .diapo.car-act img,
+.carrusel:hover .diapo:first-child img { transform: scale(1.03); }
+
+/* Стрелки показываются по наведению на карусель, а на телефоне стоят
+   всегда: там наведения нет. Так кадр не загорожен, пока на него
+   просто смотрят. */
+@media (hover: hover) and (min-width: 601px) {
+  .car-flecha {
+    opacity: 0;
+    transition: opacity var(--paso) ease, background-color var(--paso-corto) ease,
+                transform var(--paso-corto) ease;
+  }
+  .carrusel:hover .car-flecha,
+  .car-flecha:focus-visible { opacity: 1; }
 }
+.car-flecha:hover { transform: translateY(-50%) scale(1.08); }
 
+/* ----------------------------------------------- выделение в тексте */
+
+/* Приём владельца: ключевые слова в абзаце подсвечены, а не выделены
+   жирным. Жирный в длинном тексте превращается в рябь, подсветка
+   читается как «вот это главное». Цвет взят из палитры сайта, светлее
+   его бирюзового: на белом фоне с тёмным текстом даёт контраст 12:1. */
+mark {
+  background: #d8f3e4; color: inherit;
+  padding: .05em .18em; border-radius: 3px;
+}
 
 /* ------------------------------------------------------ «Ver también» */
 
@@ -598,5 +739,240 @@ th { background: var(--azul-claro); font-weight: 600; }
   background: var(--azul-claro);
   border-top: 1px solid var(--linea);
 }
-.ver-tambien h2 { font-size: 1.5rem; margin-bottom: 1.1rem; }
+.ver-tambien h2 { font-size: var(--h2); margin-bottom: 1.1rem; }
 .ver-tambien .ficha { background: #fff; }
+
+
+/* ========================================================== карусель
+
+   Кадры сменяются перекрёстным затуханием. Слайды — обычные <img>:
+   у каждого свой alt, все ленивые, разметка остаётся читаемой для Google
+   даже при выключенном JS.
+
+   Два слоя. Базовый — чистый CSS: слайды лежат друг на друге и крутятся
+   анимацией. Поверх него carrusel.js добавляет стрелки, счётчик, свайп
+   и увеличение по клику. Если скрипт не загрузился, остаётся рабочая
+   карусель, а не пустая коробка.
+
+   Числа взяты с польского сайта владельца: 6 секунд на кадр, затухание
+   1,2 секунды. Длина затухания считается в СЕКУНДАХ, а не в процентах
+   цикла — иначе на карусели из двух кадров переход выходит втрое короче,
+   чем на карусели из шести.
+   ------------------------------------------------------------------ */
+
+.carrusel {
+  position: relative;
+  /* Вне ряда карусель уже текстовой колонки: во всю её ширину кадр
+     встаёт стеной поперёк чтения. В ряду ширину задаёт колонка. */
+  max-width: 620px;
+  margin: 1.8rem auto 0;
+}
+
+.carrusel .diapo { margin: 0; }
+
+/* Первый кадр остаётся в потоке и держит высоту коробки, но обязан быть
+   позиционированным: иначе z-index к нему не применяется, он лежит ПОД
+   остальными и проявляется невидимо — а появляется скачком, когда гаснет
+   последний. Эту ошибку владелец поймал у себя на сайте. */
+.carrusel .diapo:first-child { position: relative; }
+.carrusel .diapo:not(:first-child) { position: absolute; top: 0; left: 0; width: 100%; }
+
+.carrusel img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: var(--radio); border: 1px solid var(--linea);
+  background: var(--azul-claro);
+  cursor: zoom-in;
+}
+
+.carrusel .diapo {
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+/* Останавливает только наведение мышью. Паузы по фокусу тут нет
+   намеренно: после закрытия увеличенного кадра фокус возвращается
+   внутрь слайда, и карусель вставала бы навсегда. */
+.carrusel:hover .diapo { animation-play-state: paused; }
+
+/* Карусель за краем экрана менять кадры незачем — это расход батареи
+   на телефоне. Класс снимает и ставит IntersectionObserver. */
+.carrusel.car-fuera .diapo { animation-play-state: paused; }
+
+@keyframes car-2 {
+  0% { opacity: 0; z-index: 3 }  10.000% { opacity: 1; z-index: 3 }
+  50.000% { opacity: 1; z-index: 1 }  60.000% { opacity: 1; z-index: 1 }
+  60.010% { opacity: 0; z-index: 1 }  100% { opacity: 0; z-index: 1 }
+}
+.car-2 .diapo { animation-name: car-2; animation-duration: 12s; }
+.car-2 .diapo:nth-child(1) { animation-delay: -1.200s; }
+.car-2 .diapo:nth-child(2) { animation-delay: 4.800s; }
+
+@keyframes car-3 {
+  0% { opacity: 0; z-index: 3 }  6.667% { opacity: 1; z-index: 3 }
+  33.333% { opacity: 1; z-index: 1 }  40.000% { opacity: 1; z-index: 1 }
+  40.010% { opacity: 0; z-index: 1 }  100% { opacity: 0; z-index: 1 }
+}
+.car-3 .diapo { animation-name: car-3; animation-duration: 18s; }
+.car-3 .diapo:nth-child(1) { animation-delay: -1.200s; }
+.car-3 .diapo:nth-child(2) { animation-delay: 4.800s; }
+.car-3 .diapo:nth-child(3) { animation-delay: 10.800s; }
+
+@keyframes car-4 {
+  0% { opacity: 0; z-index: 3 }  5.000% { opacity: 1; z-index: 3 }
+  25.000% { opacity: 1; z-index: 1 }  30.000% { opacity: 1; z-index: 1 }
+  30.010% { opacity: 0; z-index: 1 }  100% { opacity: 0; z-index: 1 }
+}
+.car-4 .diapo { animation-name: car-4; animation-duration: 24s; }
+.car-4 .diapo:nth-child(1) { animation-delay: -1.200s; }
+.car-4 .diapo:nth-child(2) { animation-delay: 4.800s; }
+.car-4 .diapo:nth-child(3) { animation-delay: 10.800s; }
+.car-4 .diapo:nth-child(4) { animation-delay: 16.800s; }
+
+@keyframes car-5 {
+  0% { opacity: 0; z-index: 3 }  4.000% { opacity: 1; z-index: 3 }
+  20.000% { opacity: 1; z-index: 1 }  24.000% { opacity: 1; z-index: 1 }
+  24.010% { opacity: 0; z-index: 1 }  100% { opacity: 0; z-index: 1 }
+}
+.car-5 .diapo { animation-name: car-5; animation-duration: 30s; }
+.car-5 .diapo:nth-child(1) { animation-delay: -1.200s; }
+.car-5 .diapo:nth-child(2) { animation-delay: 4.800s; }
+.car-5 .diapo:nth-child(3) { animation-delay: 10.800s; }
+.car-5 .diapo:nth-child(4) { animation-delay: 16.800s; }
+.car-5 .diapo:nth-child(5) { animation-delay: 22.800s; }
+
+@keyframes car-6 {
+  0% { opacity: 0; z-index: 3 }  3.333% { opacity: 1; z-index: 3 }
+  16.667% { opacity: 1; z-index: 1 }  20.000% { opacity: 1; z-index: 1 }
+  20.010% { opacity: 0; z-index: 1 }  100% { opacity: 0; z-index: 1 }
+}
+.car-6 .diapo { animation-name: car-6; animation-duration: 36s; }
+.car-6 .diapo:nth-child(1) { animation-delay: -1.200s; }
+.car-6 .diapo:nth-child(2) { animation-delay: 4.800s; }
+.car-6 .diapo:nth-child(3) { animation-delay: 10.800s; }
+.car-6 .diapo:nth-child(4) { animation-delay: 16.800s; }
+.car-6 .diapo:nth-child(5) { animation-delay: 22.800s; }
+.car-6 .diapo:nth-child(6) { animation-delay: 28.800s; }
+
+/* --- когда работает скрипт: кадры переключает он, а не анимация --- */
+
+.carrusel.car-js .diapo {
+  animation: none !important; opacity: 0; z-index: 0; transition: none;
+}
+/* Уходящий кадр держит полную непрозрачность до конца перехода, а новый
+   проявляется НАД ним. Иначе в середине перехода просвечивает фон секции. */
+.carrusel.car-js .diapo.car-ant { opacity: 1; z-index: 1; }
+.carrusel.car-js .diapo.car-act {
+  opacity: 1; z-index: 2; transition: opacity 1.2s ease-in-out;
+}
+
+.car-flecha {
+  position: absolute; top: 50%; z-index: 5; transform: translateY(-50%);
+  width: 44px; height: 44px; padding: 0;
+  border: 0; border-radius: 50%; cursor: pointer;
+  background: rgba(255, 255, 255, .88); color: var(--azul);
+  box-shadow: 0 2px 8px rgba(16, 26, 43, .3);
+  display: flex; align-items: center; justify-content: center;
+}
+.car-flecha:hover, .car-flecha:focus-visible { background: #fff; }
+.car-flecha svg { width: 22px; height: 22px; }
+.car-izq { left: 10px; }
+.car-der { right: 10px; }
+
+.car-contador {
+  position: absolute; right: 12px; bottom: 12px; z-index: 5;
+  background: rgba(16, 26, 43, .72); color: #fff;
+  font-size: .85rem; line-height: 1; padding: 6px 10px;
+  border-radius: 999px; pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 600px) {
+  .car-flecha { width: 38px; height: 38px; }
+  .car-izq { left: 6px; }
+  .car-der { right: 6px; }
+}
+
+/* --- увеличение во весь экран --- */
+
+/* Выше плавающей кнопки телефона, которая висит в правом нижнем углу. */
+.visor {
+  position: fixed; inset: 0; z-index: 100000000;
+  background: rgba(0, 0, 0, .96);
+  display: flex; align-items: center; justify-content: center;
+}
+.visor[hidden] { display: none; }
+.visor-img {
+  max-width: 92vw; max-height: 86vh; width: auto; height: auto;
+  object-fit: contain; border-radius: 12px;
+}
+.visor .car-flecha { width: 52px; height: 52px; }
+.visor-izq { left: 16px; }
+.visor-der { right: 16px; }
+.visor-x {
+  position: absolute; top: 14px; right: 16px;
+  width: 46px; height: 46px; padding: 0;
+  border: 0; border-radius: 50%; cursor: pointer;
+  background: rgba(255, 255, 255, .88); color: var(--azul);
+  font-size: 32px; line-height: 1;
+}
+.visor-cuenta {
+  position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+  background: rgba(255, 255, 255, .15); color: #fff;
+  font-size: .95rem; padding: 7px 14px; border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 600px) {
+  .visor .car-flecha { width: 42px; height: 42px; }
+  .visor-izq { left: 8px; }
+  .visor-der { right: 8px; }
+  .visor-img { max-width: 100vw; border-radius: 0; }
+}
+
+/* Кто выключил анимацию в системе, получает кадры столбиком. */
+@media (prefers-reduced-motion: reduce) {
+  .carrusel .diapo {
+    position: static !important; opacity: 1 !important; animation: none !important;
+  }
+  .carrusel .diapo + .diapo { margin-top: 1rem; }
+  .car-flecha, .car-contador { display: none; }
+}
+
+
+/* ------------------------------------------- ряд «текст + фотографии»
+
+   Приём со страниц цен польского сайта: колонка текста слева, колонка
+   с фотографиями справа. Секция выходит заметно короче, а фотография
+   перестаёт быть стеной поперёк чтения.
+
+   Порядок в разметке — текст, потом фотографии. На телефоне колонки
+   складываются одна под другую именно в этом порядке: сначала
+   объяснение, потом снимки.
+   ------------------------------------------------------------------ */
+
+.fila { display: grid; gap: 1.6rem; align-items: start; }
+
+@media (min-width: 900px) {
+  .fila {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .88fr);
+    gap: 2.6rem;
+  }
+  /* Фотографии остаются перед глазами, пока читается длинный текст
+     рядом. Отступ — под липкую шапку. */
+  .fila > .carrusel { position: sticky; top: 5.2rem; }
+}
+
+/* Внутри колонки текст занимает её целиком: общее правило центрует
+   абзацы по странице и ограничивает их 720 px, а здесь ширину задаёт
+   уже сама колонка. */
+.fila-texto > p,
+.fila-texto > ul,
+.fila-texto > ol,
+.fila-texto > h3,
+.fila-texto > .aviso,
+.fila-texto > .dato {
+  max-width: none; margin-left: 0; margin-right: 0;
+}
+.fila-texto > :first-child { margin-top: 0; }
+
+.fila > .carrusel { margin: 0; max-width: none; }
