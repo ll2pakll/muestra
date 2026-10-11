@@ -112,8 +112,8 @@ a { color: var(--azul); }
 
 .portada h1 {
   margin: 0 auto 1.2rem;
-  font-size: clamp(1.75rem, 4.6vw, 3rem);
-  font-weight: 600; line-height: 1.15;
+  font-size: clamp(2rem, 5.6vw, 3.6rem);
+  font-weight: 600; line-height: 1.12;
   letter-spacing: -.015em;
   max-width: 20ch;
   text-shadow: 0 1px 12px rgba(0, 0, 0, .35);
@@ -462,4 +462,11 @@ th { background: var(--azul-claro); font-weight: 600; }
 
 @media (prefers-reduced-motion: reduce) {
   .numero-grande { transition: none; }
+}
+
+/* Ссылка «смотреть всё» под рядом карточек. Пятая карточка, висящая
+   одна под рядом из четырёх, выглядит как ошибка вёрстки. */
+.mas-enlace {
+  margin: 1.2rem auto 0; text-align: center;
+  max-width: none; font-weight: 600;
 }
