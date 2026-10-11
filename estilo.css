@@ -470,3 +470,7 @@ th { background: var(--azul-claro); font-weight: 600; }
   margin: 1.2rem auto 0; text-align: center;
   max-width: none; font-weight: 600;
 }
+
+@media (max-width: 700px) {
+  .ciudad-ok.extra { display: none; }
+}
