@@ -38,8 +38,52 @@
     <nav aria-label="Principal">
       <ul class="menu" id="menu-principal">
 <li><a href="/muestra/">Inicio</a></li>
-<li><a href="/muestra/servicios/">Servicios</a></li>
-<li><a href="/muestra/averias/">Averías frecuentes</a></li>
+<li class="tiene-hijos">
+      <a href="/muestra/marcas/">Marcas</a>
+      <button class="sub-boton" type="button" aria-expanded="false"
+              aria-label="Desplegar Marcas"><span aria-hidden="true"></span></button>
+      <ul class="submenu">
+        <li><a href="/muestra/marcas/came/">Came</a></li>
+        <li><a href="/muestra/marcas/nice/">Nice</a></li>
+        <li><a href="/muestra/marcas/faac/">FAAC</a></li>
+        <li><a href="/muestra/marcas/bft/">BFT</a></li>
+        <li><a href="/muestra/marcas/erreka/">Erreka</a></li>
+        <li><a href="/muestra/marcas/roper/">Roper</a></li>
+        <li><a href="/muestra/marcas/hormann/">Hörmann</a></li>
+        <li><a href="/muestra/marcas/proteco/">Proteco</a></li>
+        <li><a href="/muestra/marcas/motorline/">Motorline</a></li>
+        <li><a href="/muestra/marcas/ditec/">Ditec</a></li>
+        <li><a href="/muestra/marcas/dea/">DEA</a></li>
+        <li><a href="/muestra/marcas/clemsa/">Clemsa</a></li>
+        <li><a href="/muestra/marcas/">Y otras marcas</a></li>
+      </ul>
+    </li>
+<li class="tiene-hijos">
+      <a href="/muestra/servicios/" class="activo">Servicios</a>
+      <button class="sub-boton" type="button" aria-expanded="false"
+              aria-label="Desplegar Servicios"><span aria-hidden="true"></span></button>
+      <ul class="submenu">
+        <li><a href="/muestra/puerta-garaje-seccional/">Puertas seccionales</a></li>
+        <li><a href="/muestra/puerta-garaje-basculante/">Puertas basculantes</a></li>
+        <li><a href="/muestra/puerta-corredera/">Puertas correderas</a></li>
+        <li><a href="/muestra/puerta-batiente/">Puertas batientes</a></li>
+        <li><a href="/muestra/puerta-industrial/">Puertas industriales</a></li>
+        <li><a href="/muestra/barreras/">Barreras</a></li>
+        <li><a href="/muestra/persiana-enrollable/" class="activo" aria-current="page">Persianas enrollables</a></li>
+      </ul>
+    </li>
+<li class="tiene-hijos">
+      <a href="/muestra/averias/">Averías</a>
+      <button class="sub-boton" type="button" aria-expanded="false"
+              aria-label="Desplegar Averías"><span aria-hidden="true"></span></button>
+      <ul class="submenu">
+        <li><a href="/muestra/averias/cable-roto-puerta-seccional/">Cable roto o enredado</a></li>
+        <li><a href="/muestra/averias/muelle-roto-puerta-garaje/">Muelle roto</a></li>
+        <li><a href="/muestra/averias/puerta-garaje-no-se-queda-arriba/">No se queda arriba</a></li>
+        <li><a href="/muestra/averias/puerta-corredera-ruido-carros/">La corredera chirría</a></li>
+        <li><a href="/muestra/averias/">Todas las averías</a></li>
+      </ul>
+    </li>
 <li><a href="/muestra/zona-de-actuacion/">Zona de actuación</a></li>
 <li><a href="/muestra/contacto/">Contacto</a></li>
       </ul>
@@ -49,17 +93,11 @@
 
 <main id="contenido">
 
-<section class="portada" style="--bg:url('/muestra/img/hero-seccional.jpg');--bg-s:url('/muestra/img/hero-seccional-900.jpg')">
+<section class="portada portada-fina" style="--bg:url('/muestra/img/hero-seccional.jpg');--bg-s:url('/muestra/img/hero-seccional-900.jpg')">
   <div class="envoltorio">
     <h1>Reparación de persianas enrollables</h1>
     <p class="portada-sub">Persianas de vivienda y cierres enrollables de local. Cinta, muelle, lamas y motor.</p>
-    <p class="portada-llamada">Llámenos ahora:</p>
-    <p class="portada-tel">
-      <a class="numero-grande" href="tel:+34641652448">641 652 448</a>
-    </p>
-    <p class="portada-tel portada-tel-alt">
-      <a class="boton boton-alt" href="https://wa.me/34641652448" rel="nofollow noopener" target="_blank">Escribir por WhatsApp</a>
-    </p>
+
   </div>
 </section>
 
@@ -243,6 +281,22 @@
     boton.setAttribute("aria-expanded", String(!abierto));
     menu.classList.toggle("abierto", !abierto);
   });
+
+  /* Разделы с подпунктами. На широком экране их раскрывает наведение,
+     кнопка там спрятана стилями; на телефоне наведения нет, поэтому
+     тот же пункт остаётся ссылкой на свою страницу, а раскрывает
+     подпункты отдельная кнопка рядом. */
+  var subs = menu.querySelectorAll(".sub-boton");
+  for (var i = 0; i < subs.length; i++) {
+    subs[i].addEventListener("click", function (ev) {
+      ev.preventDefault();
+      var lista = this.parentNode.querySelector(".submenu");
+      if (!lista) return;
+      var ab = this.getAttribute("aria-expanded") === "true";
+      this.setAttribute("aria-expanded", String(!ab));
+      lista.classList.toggle("abierto", !ab);
+    });
+  }
 })();
 </script>
 
