@@ -84,7 +84,7 @@ a { color: var(--azul); }
   position: relative;
   display: grid; place-items: center;
   text-align: center;
-  padding: clamp(3rem, 9vw, 5.5rem) 0;
+  padding: clamp(1.7rem, 4vw, 2.9rem) 0;
   color: #fff;
   background-color: var(--azul-hondo);
   background-image: var(--bg-s);
@@ -111,16 +111,16 @@ a { color: var(--azul); }
 .portada > * { position: relative; }
 
 .portada h1 {
-  margin: 0 auto 1.2rem;
-  font-size: clamp(2rem, 5.6vw, 3.6rem);
+  margin: 0 auto .85rem;
+  font-size: clamp(1.9rem, 4.1vw, 2.8rem);
   font-weight: 600; line-height: 1.12;
   letter-spacing: -.015em;
   max-width: 20ch;
   text-shadow: 0 1px 12px rgba(0, 0, 0, .35);
 }
 .portada-sub {
-  margin: 0 auto 1.6rem; max-width: 46ch;
-  font-size: 1.1rem; color: #dbe6f2;
+  margin: 0 auto 1.25rem; max-width: 50ch;
+  font-size: 1.24rem; line-height: 1.45; color: #e3edf7;
 }
 /* margin-inline: auto обязателен. Раньше тут стояло margin: 0, и класс
    перебивал auto-поля от `section p`: коробка кнопок шириной 720px
@@ -388,18 +388,18 @@ th { background: var(--azul-claro); font-weight: 600; }
    подзаголовка. Это не украшение: половина посетителей приходит
    со сломанными воротами и звонит, не читая. */
 .portada-llamada {
-  margin: 0 auto .5rem;
-  font-size: 1.05rem; letter-spacing: .02em;
+  margin: 0 auto .45rem;
+  font-size: 1.12rem; letter-spacing: .02em;
   color: #cfe0f0; text-transform: uppercase;
 }
 
 .numero-grande {
   display: inline-block; text-decoration: none;
-  font-size: clamp(1.6rem, 5.2vw, 2.7rem);
+  font-size: clamp(1.75rem, 4.2vw, 2.25rem);
   font-weight: 700; line-height: 1;
   letter-spacing: .01em;
   color: #fff;
-  padding: .62em 1.05em;
+  padding: .52em 1em;
   border: 2px solid rgba(255, 255, 255, .85);
   border-radius: 999px;
   background: rgba(8, 32, 60, .35);
@@ -412,7 +412,7 @@ th { background: var(--azul-claro); font-weight: 600; }
   transform: translateY(-1px);
 }
 
-.portada-tel-alt { margin-top: .9rem; }
+.portada-tel { align-items: center; }
 
 /* ------------------------------------------------ полоса зоны выезда */
 
@@ -575,7 +575,7 @@ th { background: var(--azul-claro); font-weight: 600; }
   margin-bottom: .55rem; max-width: 26ch;
 }
 .portada-fina .portada-sub {
-  margin-bottom: 0; font-size: 1.03rem; max-width: 58ch;
+  margin-bottom: 0; font-size: 1.18rem; max-width: 58ch;
 }
 
 /* --------------------------------------------------- размер шрифта */
@@ -587,3 +587,16 @@ th { background: var(--azul-claro); font-weight: 600; }
   .ficha p { font-size: 1.04rem; }
   .franja-zona p { font-size: 1.02rem; }
 }
+
+
+/* ------------------------------------------------------ «Ver también» */
+
+/* Человек приходит из поиска на один симптом и не знает, что рядом
+   есть его случай. Поэтому ссылки не в подвале, а в конце текста —
+   там, где он дочитал и не знает, что делать дальше. */
+.ver-tambien {
+  background: var(--azul-claro);
+  border-top: 1px solid var(--linea);
+}
+.ver-tambien h2 { font-size: 1.5rem; margin-bottom: 1.1rem; }
+.ver-tambien .ficha { background: #fff; }
