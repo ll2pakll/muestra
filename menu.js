@@ -68,32 +68,6 @@
   });
 })();
 
-// Карта зоны. Не грузится сама: плитки идут с чужого сервера, то есть
-// отдают ему IP посетителя. Пока человек не нажал кнопку, наружу
-// не уходит ни один запрос.
-(function () {
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest('.sbw-mapa-boton');
-    if (!b) return;
-    var caja = b.closest('.sbw-mapa');
-    var marco = document.createElement('iframe');
-    marco.src = caja.getAttribute('data-mapa');
-    marco.title = 'Mapa de la zona de actuación';
-    marco.loading = 'lazy';
-    marco.setAttribute('referrerpolicy', 'no-referrer');
-    caja.querySelector('.sbw-mapa-tapa').remove();
-    caja.appendChild(marco);
-    // Ссылка остаётся и после загрузки: если плитки не придут (блокировщик,
-    // плохая связь), человек увидит пустой прямоугольник и без неё решит,
-    // что сломан сайт.
-    var pie = document.createElement('p');
-    pie.className = 'sbw-mapa-nota';
-    pie.innerHTML = '<a href="' + caja.getAttribute('data-abrir') +
-      '" rel="noopener" target="_blank">Abrir el mapa en otra pestaña</a>';
-    caja.appendChild(pie);
-  });
-})();
-
 // Форма. Проверку делает браузер (required), здесь только понятная
 // надпись на кнопке: отправка уходит на чужой сервис и занимает секунду,
 // без этого человек жмёт второй раз.
